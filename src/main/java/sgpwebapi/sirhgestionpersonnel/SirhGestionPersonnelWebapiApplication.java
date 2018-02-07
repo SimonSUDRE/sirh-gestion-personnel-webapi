@@ -1,4 +1,4 @@
-package sgpwebapi.sirhgestionpersonnelwebapi;
+package sgpwebapi.sirhgestionpersonnel;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
