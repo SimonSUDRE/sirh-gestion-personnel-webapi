@@ -11,14 +11,14 @@ import sgpwebapi.sirhgestionpersonnel.entite.Departement;
 import sgpwebapi.sirhgestionpersonnel.repository.DepartementsRepository;
 
 @RestController
-@RequestMapping("/api/departements")
+@RequestMapping("/departements")
 public class DepartementsApiController {
 	
 	@Autowired
-	private DepartementsRepository exempleRepo;
+	private DepartementsRepository departRepo;
 
 	@GetMapping
-	public List<Departement> listerexemples() {
-		return this.exempleRepo.findAll();
+	public List<Departement> lister() {
+		return departRepo.findAll();
 	}
 }

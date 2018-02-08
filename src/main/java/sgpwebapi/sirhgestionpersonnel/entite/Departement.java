@@ -16,12 +16,9 @@ public class Departement {
 	@Column
 	private String nom;
 	
-	public Departement() {
-		
-	}
+	public Departement() { }
 	
-	public Departement(Integer id, String nom) {
-		this.id = id;
+	public Departement(String nom) {
 		this.nom = nom;
 	}
 
