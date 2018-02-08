@@ -12,7 +12,7 @@ import javax.persistence.ManyToOne;
 
 @Entity
 public class Collaborateur {
-	
+
 	@Id	
 	@Column(name="matricule")
 	private String matricule;

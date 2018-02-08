@@ -83,7 +83,20 @@
 			<artifactId>hibernate-java8</artifactId>
 			<scope>runtime</scope>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.springframework.sync/spring-sync -->
+		<dependency>
+			<groupId>org.springframework.sync</groupId>
+			<artifactId>spring-sync</artifactId>
+			<version>1.0.0.M1</version>
+		</dependency>
 	</dependencies>
+
+	<repositories>
+		<repository>
+			<id>SPRING</id>
+			<url>http://repo.spring.io/milestone/</url>
+		</repository>
+	</repositories>
 
 	<build>
 		<finalName>api</finalName>
