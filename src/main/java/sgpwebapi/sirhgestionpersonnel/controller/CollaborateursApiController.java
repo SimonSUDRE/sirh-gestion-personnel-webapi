@@ -3,6 +3,7 @@ package sgpwebapi.sirhgestionpersonnel.controller;
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,13 +27,12 @@ public class CollaborateursApiController {
 	private CollaborateursRepository collabRepo;
 
 	@GetMapping
-	public List<Collaborateur> lister() {
-		return collabRepo.findAll();
-	}
-
-	@GetMapping(path = "?departement={id}")
-	public List<Collaborateur> listerParDepartement(@RequestParam("departement") Integer id) {
-		return collabRepo.findAll().stream().filter(c -> c.getDepartement().getId() == id).collect(Collectors.toList());
+	public List<Collaborateur> lister(@RequestParam("departement") Optional<Integer> id) {
+		List<Collaborateur> lCollab = collabRepo.findAll();
+		if(id.isPresent()) {
+			return lCollab.stream().filter(c -> c.getDepartement().getId().equals(id.get())).collect(Collectors.toList());
+		}
+		return lCollab;
 	}
 
 	@GetMapping(path = "/{matricule}")
@@ -45,7 +45,7 @@ public class CollaborateursApiController {
 		Collaborateur collab = collabRepo.getByMatricule(matricule);
 		collab.setActif(true);
 		collab.setAdresse("");
-		collab.setDateDeNaissance(LocalDate.now());
+		collab.setDateDeNaissance(LocalDate.parse(""));
 		collab.setBanque(new CompteBanquaire("", "", ""));
 		collab.setDateHeureCreation(ZonedDateTime.now());
 		collab.setDepartement(new Departement(""));
