@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -30,6 +31,7 @@ public class CollaborateursApiController {
 	private DepartementsRepository departRepo;
 
 	@GetMapping
+	@CrossOrigin
 	public List<Collaborateur> lister(@RequestParam("departement") Optional<Integer> id) {
 		if (id.isPresent()) {
 			return collabRepo.getByDepartement(departRepo.findOne(id.get()));
@@ -60,15 +62,19 @@ public class CollaborateursApiController {
 			collabRepo.save(collabModif);
 			return collabRepo.getByMatricule(matricule);
 		}
-		return null;
+		return new Collaborateur();
 	}
 
 	@GetMapping(path = "/{matricule}/banque")
 	public CompteBanquaire afficherBanqueCollaborateur(@PathVariable String matricule) {
-		return collabRepo.getByMatricule(matricule).getBanque();
+		if(collabRepo.getByMatricule(matricule) != null) {
+			return collabRepo.getByMatricule(matricule).getBanque();
+		}
+		return new CompteBanquaire();
 	}
 
 	@PutMapping(path = "/{matricule}/banque")
+	@CrossOrigin
 	public CompteBanquaire modifierBanqueCollaborateur(@PathVariable String matricule, @RequestBody Collaborateur collab) throws IllegalAccessException {
 		Collaborateur collabModif = collabRepo.getByMatricule(matricule);
 		if (collabModif != null) {
@@ -81,6 +87,6 @@ public class CollaborateursApiController {
 			collabRepo.save(collabModif);
 			return collabRepo.getByMatricule(matricule).getBanque();
 		}
-		return null;
+		return new CompteBanquaire();
 	}
 }
